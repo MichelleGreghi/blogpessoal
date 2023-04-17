@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.generation.blogpessoal.model.Postagem;
 import com.generation.blogpessoal.repository.PostagemRepository;
+import com.generation.blogpessoal.repository.TemaRepository;
 
 import jakarta.validation.Valid;
 
@@ -30,6 +30,9 @@ public class PostagemController {
 	
 	@Autowired
 	private PostagemRepository postagemRepository;
+	
+	@Autowired
+	private TemaRepository temaRepository;
 	
 	@GetMapping // Get = método de consulta
 	public ResponseEntity<List<Postagem>> getAll(){
