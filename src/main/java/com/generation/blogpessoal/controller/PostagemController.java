@@ -1,7 +1,6 @@
 package com.generation.blogpessoal.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
 
 import com.generation.blogpessoal.model.Postagem;
 import com.generation.blogpessoal.repository.PostagemRepository;
@@ -61,22 +59,25 @@ public class PostagemController {
 	
 	@PostMapping
 	public ResponseEntity<Postagem> post(@Valid @RequestBody Postagem postagem){
-		return ResponseEntity.status(HttpStatus.CREATED).body(postagemRepository.save(postagem));
+		// INSERT INTO tb_postagens(titulo, texto) VALUES ("???", "???")
 		
-		/* INSERT INTO tb_postagens (data, titulo, texto)
-		 VALUES (?, ?, ?)*/
+		return temaRepository.findById(postagem.getTema().getId())
+				.map(resposta -> ResponseEntity.status(HttpStatus.CREATED).body(postagemRepository.save(postagem)))
+				.orElse(ResponseEntity.status(HttpStatus.BAD_REQUEST).build());
 	}
 	
 	
-	@PutMapping("/{id}")
-	public void put(@PathVariable Long id, @Valid @RequestBody Postagem postagem) {
-		Optional<Postagem> post = postagemRepository.findById(id);
-		if(post.isEmpty())
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-			ResponseEntity.status(HttpStatus.OK).body(postagemRepository.save(postagem));
-		
-		/* UPDATE tb_postagens SET titulo = ?, texto = ?, data = ?
-		 * WHERE id =id*/
+	@PutMapping
+	public ResponseEntity<Postagem> put(@Valid @RequestBody Postagem postagem){
+		// UPDATE tb_postagens SET titulo = "???", texto = "???", data = "???" WHERE id = ?
+				
+		return postagemRepository.findById(postagem.getId())
+				.map(resposta -> 
+					temaRepository.findById(postagem.getTema().getId())
+						.map(resposta2 -> ResponseEntity.status(HttpStatus.OK).body(postagemRepository.save(postagem)))
+						.orElse(ResponseEntity.status(HttpStatus.BAD_REQUEST).build())
+				)
+				.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
 	}
 	
 	
