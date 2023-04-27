@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.generation.blogpessoal.model.Usuario;
 import com.generation.blogpessoal.model.UsuarioLogin;
+import com.generation.blogpessoal.repository.UsuarioRepository;
 import com.generation.blogpessoal.service.UsuarioService;
 
 import jakarta.validation.Valid;
@@ -28,6 +29,9 @@ public class UsuarioController {
 
 	@Autowired
 	private UsuarioService usuarioService;
+	
+	@Autowired
+	private UsuarioRepository usuarioRepository;
 	
 	@PostMapping("/cadastrar")
 	public ResponseEntity<Usuario> postUsuario(@Valid @RequestBody Usuario usuario){
