@@ -90,7 +90,9 @@ public class UsuarioService {
 		return encoder.encode(senha);
 	}
 
+}
+
 	
 
 
-}
+

@@ -8,6 +8,19 @@ public class UsuarioLogin {
 	private String senha;
 	private String foto;
 	private String token;
+	
+	/*Criar os Métodos Construtores*/
+	
+	public UsuarioLogin(String usuario, String senha) {
+
+		this.usuario = usuario;
+		this.senha = senha;
+
+	}
+
+	public UsuarioLogin () { }
+	
+	/*Getters and Setters*/
 
 	public Long getId() {
 		return this.id;
