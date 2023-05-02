@@ -123,7 +123,7 @@ public class UsuarioControllerTest {
 	}
 	
 	@Test
-	@DisplayName("😊 Deve Listar todos os Usuários") 
+	@DisplayName("😊 Deve buscar Usuário por ID") 
 	public void deveBuscarPorId() {
 		
 		usuarioService.cadastrarUsuario(new Usuario(0L,
