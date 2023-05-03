@@ -11,8 +11,9 @@ public class UsuarioLogin {
 	
 	/*Criar os Métodos Construtores*/
 	
-	public UsuarioLogin(String usuario, String senha) {
 
+	public UsuarioLogin(String usuario, String senha) {
+		
 		this.usuario = usuario;
 		this.senha = senha;
 
